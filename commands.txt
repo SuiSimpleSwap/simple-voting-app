@@ -3,7 +3,7 @@
 
 
 sui client call \
-  --package 0xb5c46faaa470e7723180be1128e87fdd7e5437954cd26324b1a4d193e6c54abc \
+  --package 0x639c74726babc9346b19053102ed7c5fdb626aed7403c5da435ff1f02a4b372d \
   --module dashboard \
   --function create_proposal \
   --args "Proposal 1" "Proposal description 1" 1768564857 \
@@ -11,24 +11,24 @@ sui client call \
 
 
 sui client ptb \
-  --move-call 0xb5c46faaa470e7723180be1128e87fdd7e5437954cd26324b1a4d193e6c54abc::dashboard::create_proposal \
+  --move-call 0x639c74726babc9346b19053102ed7c5fdb626aed7403c5da435ff1f02a4b372d::dashboard::create_proposal \
   '"Proposal 2"' \
   '"Proposal description 2"' \
   1768564857
 
 
 sui client ptb \
-  --move-call 0xb5c46faaa470e7723180be1128e87fdd7e5437954cd26324b1a4d193e6c54abc::dashboard::create_proposal \
+  --move-call 0x639c74726babc9346b19053102ed7c5fdb626aed7403c5da435ff1f02a4b372d::dashboard::create_proposal \
   '"Proposal 3"' '"Proposal description 3"' 1768564857 \
-  --move-call 0xb5c46faaa470e7723180be1128e87fdd7e5437954cd26324b1a4d193e6c54abc::dashboard::create_proposal \
+  --move-call 0x639c74726babc9346b19053102ed7c5fdb626aed7403c5da435ff1f02a4b372d::dashboard::create_proposal \
   '"Proposal 4"' '"Proposal description 4"' 1768564857 \
-  --move-call 0xb5c46faaa470e7723180be1128e87fdd7e5437954cd26324b1a4d193e6c54abc::dashboard::create_proposal \
+  --move-call 0x639c74726babc9346b19053102ed7c5fdb626aed7403c5da435ff1f02a4b372d::dashboard::create_proposal \
   '"Proposal 5"' '"Proposal description 5"' 1768564857
 
 
 
 sui client ptb \
-  --move-call 0xb5c46faaa470e7723180be1128e87fdd7e5437954cd26324b1a4d193e6c54abc::dashboard::create_proposal \
+  --move-call 0x639c74726babc9346b19053102ed7c5fdb626aed7403c5da435ff1f02a4b372d::dashboard::create_proposal \
   '"Proposal 6"' '"Proposal description 6"' 1768564857 \
   --split-coins gas "[1000]" \
   --assign coin \
