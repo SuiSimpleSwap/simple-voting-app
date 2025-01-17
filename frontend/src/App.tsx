@@ -3,9 +3,10 @@ import { useTheme } from "./providers/theme/ThemeContext";
 import ProposalView from "./views/ProposalView";
 import Navbar from "./components/Navbar";
 import WalletView from "./views/WalletView";
+import { useNavigation } from "./providers/navigation/NavigationContext";
 
 const Pages = () => {
-  const currentPage: string = "/wallet";
+  const { currentPage } = useNavigation();
 
   switch(currentPage) {
     case "/":
