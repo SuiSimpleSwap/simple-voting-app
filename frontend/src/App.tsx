@@ -1,6 +1,7 @@
 import React from "react";
 import { useTheme } from "./providers/theme/ThemeContext";
 import ProposalView from "./views/ProposalView";
+import Navbar from "./components/Navbar";
 
 const App: React.FC = () => {
   const { darkMode }  = useTheme();
@@ -8,6 +9,7 @@ const App: React.FC = () => {
   return (
     <div className={`${darkMode ? "dark" : ""}`}>
       <div className="min-h-screen bg-gray-100 text-gray-900 dark:bg-gray-900 dark:text-gray-100">
+        <Navbar />
         <div className="max-w-screen-xl m-auto pt-16">
           <h1 className="text-4xl font-bold mb-4">Simple Proposal App</h1>
           <ProposalView />
