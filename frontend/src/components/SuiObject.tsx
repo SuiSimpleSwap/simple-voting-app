@@ -8,6 +8,10 @@ type SuiObjectProps = {
 export const SuiObject: FC<SuiObjectProps> = ({ objectRes }) => {
 
   const owner = objectRes.data?.owner;
+  const objectType = objectRes.data?.type;
+
+  const isCoin = objectType?.includes("0x2::coin::Coin");
+  const balance = isCoin ? (objectRes.data?.content as any).fields?.balance : -1;
 
   return (
     <div
@@ -18,7 +22,7 @@ export const SuiObject: FC<SuiObjectProps> = ({ objectRes }) => {
         <strong>ID:</strong> {objectRes.data?.objectId}
       </p>
       <p className="text-gray-700 dark:text-gray-300">
-        <strong>Type:</strong> {objectRes.data?.type}
+        <strong>Type:</strong> {objectType}
       </p>
       <p className="text-gray-700 dark:text-gray-300">
         <strong>Owner:</strong> {
@@ -27,6 +31,11 @@ export const SuiObject: FC<SuiObjectProps> = ({ objectRes }) => {
             : "Unknow"
         }
       </p>
+      { isCoin && (
+        <p className="text-gray-700 dark:text-gray-300">
+          <strong>Balance:</strong> {balance}
+        </p>
+      )}
     </div>
   )
 };
