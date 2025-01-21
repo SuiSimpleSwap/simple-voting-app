@@ -32,6 +32,14 @@ public fun register_proposal(self: &mut Dashboard, proposal_id: ID) {
     self.proposals_ids.push_back(proposal_id);
 }
 
+#[test_only]
+public fun issue_admin_cap(ctx: &mut TxContext) {
+    transfer::transfer(
+        AdminCap {id: object::new(ctx)},
+        ctx.sender()
+    );
+}
+
 #[test]
 fun test_module_init() {
     use sui::test_scenario;
