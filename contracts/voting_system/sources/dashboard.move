@@ -6,8 +6,17 @@ public struct Dashboard has key {
     proposals_ids: vector<ID>
 }
 
+public struct AdminCap has key {
+    id: UID,
+}
+
 fun init(ctx: &mut TxContext) {
     new(ctx);
+
+    transfer::transfer(
+        AdminCap {id: object::new(ctx)},
+        ctx.sender()
+    );
 }
 
 public fun new(ctx: &mut TxContext) {

@@ -1,6 +1,7 @@
 module voting_system::proposal;
 
 use std::string::String;
+use voting_system::dashboard::AdminCap;
 
 public struct Proposal has key {
     id: UID,
@@ -13,7 +14,13 @@ public struct Proposal has key {
     voter_registry: vector<address>,
 }
 
-public fun create(title: String, description: String, expiration: u64, ctx: &mut TxContext) {
+public fun create(
+    _admin_cap: &AdminCap,
+    title: String,
+    description: String,
+    expiration: u64,
+    ctx: &mut TxContext
+) {
     let proposal = Proposal {
         id: object::new(ctx),
         title,
