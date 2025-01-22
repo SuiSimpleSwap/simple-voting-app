@@ -67,6 +67,12 @@ fun test_module_init() {
 
 use std::debug;
 
+// public struct Container has copy, drop {
+//     value: u64,
+// }
+
+public struct Car has drop {}
+
 #[test]
 fun playing_around() {
     // primitive types are numbers, booleans and address and also vector if it contain primitive type
@@ -83,14 +89,59 @@ fun playing_around() {
     // debug::print(&b"------b------".to_string());
     // debug::print(&b);
 
-    let mut a = 10;
-    let b = &mut a;
+    // let mut a = 10;
+    // let b = &mut a;
 
-    *b = 200;
+    // *b = 200;
 
-    debug::print(&b"------b------".to_string());
-    debug::print(&*b);
+    // debug::print(&b"------b------".to_string());
+    // debug::print(&*b);
 
-    debug::print(&b"------a------".to_string());
-    debug::print(&a);
+    // debug::print(&b"------a------".to_string());
+    // debug::print(&a);
+
+    // let a = Container { value: 10};
+    // let mut b = a;
+
+    // b.value = 1000;
+
+    // debug::print(&b"------b------".to_string());
+    // debug::print(&b.value);
+
+    // let Container { value: _} = b;
+
+    // let mut a = Container { value: 10};
+    // let b = &mut a;
+
+    // b.value = 1000;
+
+    // debug::print(&b"------b------".to_string());
+    // debug::print(&b.value);
+
+    // debug::print(&b"------a------".to_string());
+    // debug::print(&a.value);
+
+    // let Container { value: _} = a;
+
+    // let mut a = Container {value: 10};
+    // let mut b = a;
+
+    // a.value = 100;
+    // b.value = 200;
+
+    // debug::print(&b"------a------".to_string());
+    // debug::print(&a.value);
+
+    // debug::print(&b"------b------".to_string());
+    // debug::print(&b.value);
+
+    let new_car = Car{};
+
+    rent_car(&new_car);
+
+    debug::print(&new_car);
+}
+
+fun rent_car(car: &Car) {
+
 }
