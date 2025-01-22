@@ -10,6 +10,10 @@ public struct AdminCap has key {
     id: UID,
 }
 
+public struct DashboardConfig has drop {
+    value: u64
+}
+
 public struct DASHBOARD has drop {}
 
 fun init(otw: DASHBOARD, ctx: &mut TxContext) {
@@ -28,7 +32,17 @@ public fun new(_otw: DASHBOARD, ctx: &mut TxContext) {
         proposals_ids: vector[]
     };
 
+    let config = DashboardConfig {
+        value: 100
+    };
+
+    consume_config(config);
+
     transfer::share_object(dashboard);
+}
+
+fun consume_config(_config: DashboardConfig) {
+
 }
 
 public fun register_proposal(self: &mut Dashboard, proposal_id: ID) {
