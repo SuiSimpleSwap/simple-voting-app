@@ -18,7 +18,7 @@ public struct ShoppingCart {
     items: vector<u64>
 }
 
-public struct DashboardConfig has drop {
+public struct DashboardConfig has drop, copy {
     value: u64
 }
 
@@ -44,10 +44,16 @@ public fun new(_otw: DASHBOARD, ctx: &mut TxContext) {
         value: 100
     };
 
+    let mut config_2 = config;
+
+    config_2.value = 1000;
+
+    consume_config(config);
+    consume_config(config_2);
+
     let potato = Potato {};
 
     pass_potato(potato);
-    consume_config(config);
 
     transfer::share_object(dashboard);
 }
