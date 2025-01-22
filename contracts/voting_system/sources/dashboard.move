@@ -10,6 +10,14 @@ public struct AdminCap has key {
     id: UID,
 }
 
+// hot potato pattern - struct with no abilities
+// it cannot be stored, copied or discarded
+public struct Potato {}
+
+public struct ShoppingCart {
+    items: vector<u64>
+}
+
 public struct DashboardConfig has drop {
     value: u64
 }
@@ -36,9 +44,30 @@ public fun new(_otw: DASHBOARD, ctx: &mut TxContext) {
         value: 100
     };
 
+    let potato = Potato {};
+
+    pass_potato(potato);
     consume_config(config);
 
     transfer::share_object(dashboard);
+}
+
+public fun checkout(shopping_cart: ShoppingCart) {
+
+    payment(shopping_cart);
+}
+
+fun payment(shopping_cart: ShoppingCart) {
+    let ShoppingCart { items } = shopping_cart;
+
+}
+
+fun pass_potato(potato: Potato) {
+    pass_potato_2(potato);
+}
+
+fun pass_potato_2(potato: Potato) {
+    let Potato {} = potato;
 }
 
 fun consume_config(_config: DashboardConfig) {
