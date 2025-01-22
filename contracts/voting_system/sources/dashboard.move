@@ -10,18 +10,6 @@ public struct AdminCap has key {
     id: UID,
 }
 
-// hot potato pattern - struct with no abilities
-// it cannot be stored, copied or discarded
-public struct Potato {}
-
-public struct ShoppingCart {
-    items: vector<u64>
-}
-
-public struct DashboardConfig has drop, copy {
-    value: u64
-}
-
 public struct DASHBOARD has drop {}
 
 fun init(otw: DASHBOARD, ctx: &mut TxContext) {
@@ -40,44 +28,7 @@ public fun new(_otw: DASHBOARD, ctx: &mut TxContext) {
         proposals_ids: vector[]
     };
 
-    let config = DashboardConfig {
-        value: 100
-    };
-
-    let mut config_2 = config;
-
-    config_2.value = 1000;
-
-    consume_config(config);
-    consume_config(config_2);
-
-    let potato = Potato {};
-
-    pass_potato(potato);
-
     transfer::share_object(dashboard);
-}
-
-public fun checkout(shopping_cart: ShoppingCart) {
-
-    payment(shopping_cart);
-}
-
-fun payment(shopping_cart: ShoppingCart) {
-    let ShoppingCart { items } = shopping_cart;
-
-}
-
-fun pass_potato(potato: Potato) {
-    pass_potato_2(potato);
-}
-
-fun pass_potato_2(potato: Potato) {
-    let Potato {} = potato;
-}
-
-fun consume_config(_config: DashboardConfig) {
-
 }
 
 public fun register_proposal(self: &mut Dashboard, proposal_id: ID) {
@@ -112,4 +63,34 @@ fun test_module_init() {
     };
 
     scenario.end();
+}
+
+use std::debug;
+
+#[test]
+fun playing_around() {
+    // primitive types are numbers, booleans and address and also vector if it contain primitive type
+    // primitive types are copied, they have Copy and Drop ability
+    // let mut a = 10;
+    // let mut b = a;
+
+    // a = a + 2;
+    // b = a * 2;
+
+    // debug::print(&b"------a------".to_string());
+    // debug::print(&a);
+
+    // debug::print(&b"------b------".to_string());
+    // debug::print(&b);
+
+    let mut a = 10;
+    let b = &mut a;
+
+    *b = 200;
+
+    debug::print(&b"------b------".to_string());
+    debug::print(&*b);
+
+    debug::print(&b"------a------".to_string());
+    debug::print(&a);
 }
