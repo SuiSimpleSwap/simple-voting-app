@@ -1,6 +1,11 @@
 
 module voting_system::dashboard;
 
+use sui::types;
+
+const EDuplicateProposal: u64 = 0;
+const EInvalidOtw: u64 = 1;
+
 public struct Dashboard has key {
     id: UID,
     proposals_ids: vector<ID>
@@ -22,7 +27,9 @@ fun init(otw: DASHBOARD, ctx: &mut TxContext) {
     );
 }
 
-public fun new(_otw: DASHBOARD, ctx: &mut TxContext) {
+public fun new(otw: DASHBOARD, ctx: &mut TxContext) {
+    assert!(types::is_one_time_witness(&otw), EInvalidOtw);
+
     let dashboard = Dashboard {
         id: object::new(ctx),
         proposals_ids: vector[]
@@ -32,6 +39,7 @@ public fun new(_otw: DASHBOARD, ctx: &mut TxContext) {
 }
 
 public fun register_proposal(self: &mut Dashboard, proposal_id: ID) {
+    assert!(!self.proposals_ids.contains(&proposal_id), EDuplicateProposal);
     self.proposals_ids.push_back(proposal_id);
 }
 
@@ -63,85 +71,4 @@ fun test_module_init() {
     };
 
     scenario.end();
-}
-
-use std::debug;
-
-// public struct Container has copy, drop {
-//     value: u64,
-// }
-
-public struct Car has drop {}
-
-#[test]
-fun playing_around() {
-    // primitive types are numbers, booleans and address and also vector if it contain primitive type
-    // primitive types are copied, they have Copy and Drop ability
-    // let mut a = 10;
-    // let mut b = a;
-
-    // a = a + 2;
-    // b = a * 2;
-
-    // debug::print(&b"------a------".to_string());
-    // debug::print(&a);
-
-    // debug::print(&b"------b------".to_string());
-    // debug::print(&b);
-
-    // let mut a = 10;
-    // let b = &mut a;
-
-    // *b = 200;
-
-    // debug::print(&b"------b------".to_string());
-    // debug::print(&*b);
-
-    // debug::print(&b"------a------".to_string());
-    // debug::print(&a);
-
-    // let a = Container { value: 10};
-    // let mut b = a;
-
-    // b.value = 1000;
-
-    // debug::print(&b"------b------".to_string());
-    // debug::print(&b.value);
-
-    // let Container { value: _} = b;
-
-    // let mut a = Container { value: 10};
-    // let b = &mut a;
-
-    // b.value = 1000;
-
-    // debug::print(&b"------b------".to_string());
-    // debug::print(&b.value);
-
-    // debug::print(&b"------a------".to_string());
-    // debug::print(&a.value);
-
-    // let Container { value: _} = a;
-
-    // let mut a = Container {value: 10};
-    // let mut b = a;
-
-    // a.value = 100;
-    // b.value = 200;
-
-    // debug::print(&b"------a------".to_string());
-    // debug::print(&a.value);
-
-    // debug::print(&b"------b------".to_string());
-    // debug::print(&b.value);
-
-    let new_car = Car{};
-
-    rent_car(&new_car);
-
-    debug::print(&new_car);
-}
-
-fun rent_car(car: &Car) {
-
 }
