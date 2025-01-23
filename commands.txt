@@ -34,3 +34,28 @@ sui client ptb \
   --assign coin \
   --transfer-objects "[coin]" @0xfe53c0745aba07c88690e1821dd36f9efcb3954b08673c3d40aaf962115a8f96
   --gas-budget 100000000
+
+
+
+sui client ptb \
+  --move-call 0x514d5d6d03c07b770744d7a708927da6b3f69a99c3eb5ba2d69b43aa7b9d84d2::proposal::create \
+  @0x9c0641cba832e97c814e6cb955bc7f8152215394ea9b2f849d32233c04a92e5b \
+  '"Proposal 1"' '"Proposal description 1"' 1740309061 \
+  --assign proposal_id \
+  --move-call 0x514d5d6d03c07b770744d7a708927da6b3f69a99c3eb5ba2d69b43aa7b9d84d2::dashboard::register_proposal \
+  @0xcae647d8bc3720024ae69aa3e2e7e7641e7c4afa8572430fb192c14f8911c6cb proposal_id
+
+
+  sui client ptb \
+  --move-call 0x514d5d6d03c07b770744d7a708927da6b3f69a99c3eb5ba2d69b43aa7b9d84d2::proposal::create \
+  @0x9c0641cba832e97c814e6cb955bc7f8152215394ea9b2f849d32233c04a92e5b \
+  '"Proposal 2"' '"Proposal description 2"' 1740309061 \
+  --assign proposal_id \
+  --move-call 0x514d5d6d03c07b770744d7a708927da6b3f69a99c3eb5ba2d69b43aa7b9d84d2::dashboard::register_proposal \
+  @0xcae647d8bc3720024ae69aa3e2e7e7641e7c4afa8572430fb192c14f8911c6cb proposal_id \
+  --move-call 0x514d5d6d03c07b770744d7a708927da6b3f69a99c3eb5ba2d69b43aa7b9d84d2::proposal::create \
+  @0x9c0641cba832e97c814e6cb955bc7f8152215394ea9b2f849d32233c04a92e5b \
+  '"Proposal 3"' '"Proposal description 3"' 1740309061 \
+  --assign proposal_id \
+  --move-call 0x514d5d6d03c07b770744d7a708927da6b3f69a99c3eb5ba2d69b43aa7b9d84d2::dashboard::register_proposal \
+  @0xcae647d8bc3720024ae69aa3e2e7e7641e7c4afa8572430fb192c14f8911c6cb proposal_id
