@@ -1,20 +1,7 @@
 import { useSuiClientQuery } from "@mysten/dapp-kit";
 import { useNetworkVariable } from "../config/networkConfig";
 import { SuiObjectData } from "@mysten/sui/client";
-import { FC } from "react";
-
-type ProposalItemsProps = {
-  id: string
-};
-
-const ProposalItem: FC<ProposalItemsProps> = ({id}) => {
-  return (
-    <div className="p-4 border rounded-lg shadow-sm bg-white dark:bg-gray-800 hover:border-blue-500 transition-colors">
-      <p className="text-xl font-semibold mb-2">Title: {id}</p>
-      <p className="text-gray-700 dark:text-gray-300">Desc: What is your vote ?</p>
-    </div>
-  )
-}
+import { ProposalItem } from "../components/proposal/ProposalItem";
 
 const ProposalView = () => {
   const dashboardId = useNetworkVariable("dashboardId");
