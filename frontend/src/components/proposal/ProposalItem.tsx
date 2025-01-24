@@ -31,6 +31,18 @@ export const ProposalItem: FC<ProposalItemsProps> = ({id}) => {
     <div className="p-4 border rounded-lg shadow-sm bg-white dark:bg-gray-800 hover:border-blue-500 transition-colors">
       <p className="text-xl font-semibold mb-2">{proposal.title}</p>
       <p className="text-gray-700 dark:text-gray-300">{proposal.description}</p>
+      <div className="flex items-center justify-between mt-4">
+        <div className="flex space-x-4">
+          <div className="flex items-center text-green-600">
+            <span className="mr-1">👍</span>
+            {proposal.votedYesCount}
+          </div>
+          <div className="flex items-center text-red-600">
+            <span className="mr-1">👎</span>
+            {proposal.votedNoCount}
+          </div>
+        </div>
+      </div>
     </div>
   )
 }
