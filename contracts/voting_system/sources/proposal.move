@@ -14,29 +14,17 @@ public struct Proposal has key {
     voter_registry: vector<address>,
 }
 
-public fun create(
-    _admin_cap: &AdminCap,
-    title: String,
-    description: String,
-    expiration: u64,
-    ctx: &mut TxContext
-): ID {
-    let proposal = Proposal {
-        id: object::new(ctx),
-        title,
-        description,
-        voted_yes_count: 0,
-        voted_no_count: 0,
-        expiration,
-        creator: ctx.sender(),
-        voter_registry: vector[],
-    };
+// === Public Functions ===
 
-    let id = proposal.id.to_inner();
-    transfer::share_object(proposal);
-
-    id
+public fun vote(self: &mut Proposal, vote_yes: bool, _ctx: &TxContext) {
+    if (vote_yes) {
+        self.voted_yes_count = self.voted_yes_count + 1;
+    } else {
+        self.voted_no_count = self.voted_no_count + 1;
+    }
 }
+
+// === View Functions ===
 
 public fun title(self: &Proposal): String {
     self.title
@@ -64,4 +52,30 @@ public fun creator(self: &Proposal): address {
 
 public fun voter_registry(self: &Proposal): vector<address> {
     self.voter_registry
+}
+
+// === Admin Functions ===
+
+public fun create(
+    _admin_cap: &AdminCap,
+    title: String,
+    description: String,
+    expiration: u64,
+    ctx: &mut TxContext
+): ID {
+    let proposal = Proposal {
+        id: object::new(ctx),
+        title,
+        description,
+        voted_yes_count: 0,
+        voted_no_count: 0,
+        expiration,
+        creator: ctx.sender(),
+        voter_registry: vector[],
+    };
+
+    let id = proposal.id.to_inner();
+    transfer::share_object(proposal);
+
+    id
 }
