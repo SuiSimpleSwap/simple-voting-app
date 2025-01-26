@@ -1,7 +1,7 @@
 import { FC } from "react";
 import { Proposal } from "../../types";
 
-type VoteModalProps = {
+interface VoteModalProps {
   proposal: Proposal;
   isOpen: boolean;
   onClose: () => void;

@@ -6,8 +6,8 @@ import { Proposal } from "../../types";
 import { VoteModal } from "./VoteModal";
 
 
-type ProposalItemsProps = {
-  id: string
+interface ProposalItemsProps {
+  id: string;
 };
 
 export const ProposalItem: FC<ProposalItemsProps> = ({id}) => {
