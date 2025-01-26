@@ -43,6 +43,10 @@ public fun vote(self: &mut Proposal, vote_yes: bool, ctx: &mut TxContext) {
 
 // === View Functions ===
 
+public fun vote_proof_url(self: &VoteProofNFT): Url {
+    self.url
+}
+
 public fun title(self: &Proposal): String {
     self.title
 }
