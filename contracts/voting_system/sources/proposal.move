@@ -1,7 +1,10 @@
 module voting_system::proposal;
 
 use std::string::String;
+use sui::table::{Self, Table};
 use voting_system::dashboard::AdminCap;
+
+const EDuplicateVote: u64 = 0;
 
 public struct Proposal has key {
     id: UID,
@@ -11,17 +14,21 @@ public struct Proposal has key {
     voted_no_count: u64,
     expiration: u64,
     creator: address,
-    voter_registry: vector<address>,
+    voters: Table<address, bool>,
 }
 
 // === Public Functions ===
 
-public fun vote(self: &mut Proposal, vote_yes: bool, _ctx: &TxContext) {
+public fun vote(self: &mut Proposal, vote_yes: bool, ctx: &TxContext) {
+    assert!(!self.voters.contains(ctx.sender()), EDuplicateVote);
+
     if (vote_yes) {
         self.voted_yes_count = self.voted_yes_count + 1;
     } else {
         self.voted_no_count = self.voted_no_count + 1;
-    }
+    };
+
+    self.voters.add(ctx.sender(), vote_yes);
 }
 
 // === View Functions ===
@@ -50,8 +57,8 @@ public fun creator(self: &Proposal): address {
     self.creator
 }
 
-public fun voter_registry(self: &Proposal): vector<address> {
-    self.voter_registry
+public fun voters(self: &Proposal): &Table<address, bool> {
+    &self.voters
 }
 
 // === Admin Functions ===
@@ -71,7 +78,7 @@ public fun create(
         voted_no_count: 0,
         expiration,
         creator: ctx.sender(),
-        voter_registry: vector[],
+        voters: table::new(ctx),
     };
 
     let id = proposal.id.to_inner();
