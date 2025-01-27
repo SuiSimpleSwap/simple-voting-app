@@ -7,6 +7,11 @@ use voting_system::dashboard::AdminCap;
 
 const EDuplicateVote: u64 = 0;
 
+public enum ProposalStatus has store, drop {
+    Active,
+    Delisted,
+}
+
 public struct Proposal has key {
     id: UID,
     title: String,
@@ -15,6 +20,7 @@ public struct Proposal has key {
     voted_no_count: u64,
     expiration: u64,
     creator: address,
+    status: ProposalStatus,
     voters: Table<address, bool>,
 }
 
@@ -92,6 +98,7 @@ public fun create(
         voted_no_count: 0,
         expiration,
         creator: ctx.sender(),
+        status: ProposalStatus::Active,
         voters: table::new(ctx),
     };
 
@@ -99,6 +106,14 @@ public fun create(
     transfer::share_object(proposal);
 
     id
+}
+
+public fun change_status(
+    self: &mut Proposal,
+    _admin_cap: &AdminCap,
+    status: ProposalStatus
+) {
+    self.status = status;
 }
 
 fun issue_vote_proof(proposal: &Proposal, vote_yes: bool, ctx: &mut TxContext) {
