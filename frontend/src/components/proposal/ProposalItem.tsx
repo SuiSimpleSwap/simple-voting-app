@@ -85,17 +85,17 @@ function parseProposal(data: SuiObjectData): Proposal | null {
   };
  }
 
-function isUnixTimeExpired(unixTimeSec: number) {
-  return new Date(unixTimeSec * 1000) < new Date();
+function isUnixTimeExpired(unixTimeMs: number) {
+  return new Date(unixTimeMs) < new Date();
 }
 
-function formatUnixTime(timestampSec: number) {
+function formatUnixTime(timestampMs: number) {
 
-  if (isUnixTimeExpired(timestampSec)) {
+  if (isUnixTimeExpired(timestampMs)) {
     return "Expired";
   }
 
-  return new Date(timestampSec * 1000).toLocaleString("en-US", {
+  return new Date(timestampMs).toLocaleString("en-US", {
     month: "short",
     day: "2-digit",
     year: "numeric",

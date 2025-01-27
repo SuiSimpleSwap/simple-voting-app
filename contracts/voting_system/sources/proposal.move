@@ -59,6 +59,15 @@ public fun vote_proof_url(self: &VoteProofNFT): Url {
     self.url
 }
 
+public fun is_active(self: &Proposal): bool {
+    let status = self.status();
+
+    match (status) {
+        ProposalStatus::Active => true,
+        _ => false,
+    }
+}
+
 public fun status(self: &Proposal): &ProposalStatus {
     &self.status
 }
@@ -165,16 +174,6 @@ fun issue_vote_proof(proposal: &Proposal, vote_yes: bool, ctx: &mut TxContext) {
     };
 
     transfer::transfer(proof, ctx.sender());
-}
-
-#[test_only]
-public fun is_active(self: &Proposal): bool {
-    let status = self.status();
-
-    match (status) {
-        ProposalStatus::Active => true,
-        _ => false,
-    }
 }
 
 #[test_only]
