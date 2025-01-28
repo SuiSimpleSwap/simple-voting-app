@@ -1,6 +1,7 @@
 import { FC } from "react";
 import { Proposal } from "../../types";
 import { ConnectButton, useCurrentWallet } from "@mysten/dapp-kit";
+import { useNetworkVariable } from "../../config/networkConfig";
 
 interface VoteModalProps {
   proposal: Proposal;
@@ -16,7 +17,16 @@ export const VoteModal: FC<VoteModalProps> = ({
   onVote,
 }) => {
   const { connectionStatus } = useCurrentWallet();
+  const packageId = useNetworkVariable("packageId");
+
   if (!isOpen) return null;
+
+  const vote = (voteYes: boolean) => {
+    console.log("package id: " + packageId);
+    console.log("proposal id: " + proposal.id.id);
+    console.log("Voted yes: " + voteYes);
+    onVote(voteYes);
+  }
 
   return (
     <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
@@ -32,13 +42,13 @@ export const VoteModal: FC<VoteModalProps> = ({
             { connectionStatus === "connected" ?
               <>
                 <button
-                  onClick={() => onVote(true)}
+                  onClick={() => vote(true)}
                   className="flex-1 bg-green-500 text-white px-6 py-2 rounded hover:bg-green-600 transition-colors"
                 >
                   Vote Yes
                 </button>
                 <button
-                  onClick={() => onVote(false)}
+                  onClick={() => vote(false)}
                   className="flex-1 bg-red-500 text-white px-6 py-2 rounded hover:bg-red-600 transition-colors"
                 >
                   Vote No
