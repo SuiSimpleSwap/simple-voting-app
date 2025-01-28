@@ -1,5 +1,6 @@
 import { FC } from "react";
 import { Proposal } from "../../types";
+import { ConnectButton, useCurrentWallet } from "@mysten/dapp-kit";
 
 interface VoteModalProps {
   proposal: Proposal;
@@ -14,6 +15,7 @@ export const VoteModal: FC<VoteModalProps> = ({
   onClose,
   onVote,
 }) => {
+  const { connectionStatus } = useCurrentWallet();
   if (!isOpen) return null;
 
   return (
@@ -27,18 +29,25 @@ export const VoteModal: FC<VoteModalProps> = ({
             <span>👎No votes: {proposal.votedNoCount}</span>
           </div>
           <div className="flex justify-between gap-4">
-            <button
-              onClick={() => onVote(true)}
-              className="flex-1 bg-green-500 text-white px-6 py-2 rounded hover:bg-green-600 transition-colors"
-            >
-              Vote Yes
-            </button>
-            <button
-              onClick={() => onVote(false)}
-              className="flex-1 bg-red-500 text-white px-6 py-2 rounded hover:bg-red-600 transition-colors"
-            >
-              Vote No
-            </button>
+            { connectionStatus === "connected" ?
+              <>
+                <button
+                  onClick={() => onVote(true)}
+                  className="flex-1 bg-green-500 text-white px-6 py-2 rounded hover:bg-green-600 transition-colors"
+                >
+                  Vote Yes
+                </button>
+                <button
+                  onClick={() => onVote(false)}
+                  className="flex-1 bg-red-500 text-white px-6 py-2 rounded hover:bg-red-600 transition-colors"
+                >
+                  Vote No
+                </button>
+              </> :
+              <div>
+                <ConnectButton connectText="Connect to vote" />
+              </div>
+            }
           </div>
           <button
             onClick={onClose}
