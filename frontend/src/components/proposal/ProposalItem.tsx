@@ -66,7 +66,10 @@ export const ProposalItem: FC<ProposalItemsProps> = ({id}) => {
         proposal={proposal}
         isOpen={isModelOpen}
         onClose={() => setIsModelOpen(false)}
-        onVote={(votedYes: boolean) => console.log(votedYes)}
+        onVote={(votedYes: boolean) => {
+          console.log(votedYes);
+          setIsModelOpen(false);
+        }}
       />
     </>
   )

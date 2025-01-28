@@ -1,7 +1,8 @@
 import { FC } from "react";
 import { Proposal } from "../../types";
-import { ConnectButton, useCurrentWallet } from "@mysten/dapp-kit";
+import { ConnectButton, useCurrentWallet, useSignAndExecuteTransaction, useSuiClient } from "@mysten/dapp-kit";
 import { useNetworkVariable } from "../../config/networkConfig";
+import { Transaction } from "@mysten/sui/transactions";
 
 interface VoteModalProps {
   proposal: Proposal;
@@ -17,15 +18,42 @@ export const VoteModal: FC<VoteModalProps> = ({
   onVote,
 }) => {
   const { connectionStatus } = useCurrentWallet();
+  const suiClient = useSuiClient();
+  const { mutate: signAndExecute } = useSignAndExecuteTransaction();
   const packageId = useNetworkVariable("packageId");
 
   if (!isOpen) return null;
 
   const vote = (voteYes: boolean) => {
-    console.log("package id: " + packageId);
-    console.log("proposal id: " + proposal.id.id);
-    console.log("Voted yes: " + voteYes);
-    onVote(voteYes);
+
+    const tx = new Transaction();
+    tx.moveCall({
+      arguments: [
+        tx.object(proposal.id.id),
+        tx.pure.bool(voteYes),
+        tx.object("0x6")
+      ],
+      target: `${packageId}::proposal::vote`
+    });
+
+    signAndExecute({
+      transaction: tx
+    }, {
+      onError: () => {
+        alert("Tx Failed!");
+      },
+      onSuccess: async ({digest}) => {
+        const { effects } = await suiClient.waitForTransaction({
+          digest,
+          options: {
+            showEffects: true
+          }
+        });
+
+        console.log(effects);
+        onVote(voteYes);
+      }
+    });
   }
 
   return (
