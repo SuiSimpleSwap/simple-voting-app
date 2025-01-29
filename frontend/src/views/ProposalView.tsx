@@ -23,7 +23,6 @@ const ProposalView = () => {
   if (!dataResponse.data) return <div className="text-center text-red-500">Not Found...</div>;
 
   const voteNfts = extractVoteNfts(voteNftsRes);
-  console.log(voteNfts);
 
   return (
     <>
@@ -33,12 +32,17 @@ const ProposalView = () => {
           <ProposalItem
             key={id}
             id={id}
+            hasVoted={checkVoteNfts(voteNfts, id)}
           />
         )}
       </div>
     </>
   )
 };
+
+function checkVoteNfts(nfts: VoteNft[], proposalId: string) {
+  return nfts.some(nft => nft.proposalId === proposalId);
+}
 
 function getDashboardFields(data: SuiObjectData) {
   if (data.content?.dataType !== "moveObject") return null;

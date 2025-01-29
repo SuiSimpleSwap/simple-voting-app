@@ -8,9 +8,10 @@ import { VoteModal } from "./VoteModal";
 
 interface ProposalItemsProps {
   id: string;
+  hasVoted: boolean;
 };
 
-export const ProposalItem: FC<ProposalItemsProps> = ({id}) => {
+export const ProposalItem: FC<ProposalItemsProps> = ({id, hasVoted}) => {
   const [isModelOpen, setIsModelOpen] = useState(false);
   const { data: dataResponse, error, isPending} = useSuiClientQuery(
     "getObject", {
@@ -64,6 +65,7 @@ export const ProposalItem: FC<ProposalItemsProps> = ({id}) => {
       </div>
       <VoteModal
         proposal={proposal}
+        hasVoted={hasVoted}
         isOpen={isModelOpen}
         onClose={() => setIsModelOpen(false)}
         onVote={(votedYes: boolean) => {
