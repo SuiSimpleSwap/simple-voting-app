@@ -22,13 +22,14 @@ export const VoteModal: FC<VoteModalProps> = ({
 }) => {
   const { connectionStatus } = useCurrentWallet();
   const suiClient = useSuiClient();
-  const { mutate: signAndExecute, isPending, isSuccess } = useSignAndExecuteTransaction();
+  const { mutate: signAndExecute, isPending, isSuccess, reset } = useSignAndExecuteTransaction();
   const packageId = useNetworkVariable("packageId");
   const toastId = useRef<number | string>();
 
   if (!isOpen) return null;
 
-  const showToast = (message: string) => toastId.current = toast(message);
+  const showToast = (message: string) => toastId.current = toast(message, {autoClose: false});
+
   const dismissToast = (message: string) => {
     toast.dismiss(toastId.current);
     toast(message, { autoClose: 2000 });
@@ -61,6 +62,7 @@ export const VoteModal: FC<VoteModalProps> = ({
           }
         });
 
+        reset();
         dismissToast("Tx Succesful!");
         onVote(voteYes);
       }
