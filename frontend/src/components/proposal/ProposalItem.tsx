@@ -9,11 +9,12 @@ import { VoteModal } from "./VoteModal";
 interface ProposalItemsProps {
   id: string;
   voteNft: VoteNft | undefined;
+  onVoteTxSuccess: () => void;
 };
 
-export const ProposalItem: FC<ProposalItemsProps> = ({id, voteNft}) => {
+export const ProposalItem: FC<ProposalItemsProps> = ({id, voteNft, onVoteTxSuccess}) => {
   const [isModelOpen, setIsModelOpen] = useState(false);
-  const { data: dataResponse, error, isPending} = useSuiClientQuery(
+  const { data: dataResponse, refetch: refetchProposal, error, isPending} = useSuiClientQuery(
     "getObject", {
       id,
       options: {
@@ -73,6 +74,8 @@ export const ProposalItem: FC<ProposalItemsProps> = ({id, voteNft}) => {
         onClose={() => setIsModelOpen(false)}
         onVote={(votedYes: boolean) => {
           console.log(votedYes);
+          refetchProposal();
+          onVoteTxSuccess();
           setIsModelOpen(false);
         }}
       />
