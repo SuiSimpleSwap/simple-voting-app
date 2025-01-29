@@ -1,13 +1,13 @@
 
-export const TESTNET_PACKAGE_ID = "0xe6e18733a0eb472f279860aad57cf53c643ca27d243afb7026f469bdf79d3caa";
+export const TESTNET_PACKAGE_ID = "0x058171d13219e409423faf756b48abbe6f50c6f902e5ba39efa3b7524321b9f6";
 export const DEVNET_PACKAGE_ID = "0x123";
 export const MAINNET_PACKAGE_ID = "0x234";
 
-export const TESTNET_ADMIN_CAP = "0x1aa4255ca09320498a9a79d83da756cac977b3baa0eb952650e973b0622df2cf";
+export const TESTNET_ADMIN_CAP = "0x7c09192cf36d236fc0d8c0885ae6e20c58644fceff8d72a3b2cc7285dc3cbedf";
 export const DEVNET_ADMIN_CAP = "0x123";
 export const MAINNET_ADMIN_CAP = "0x234";
 
-export const TESTNET_DASHBOARD_ID = "0x328a3c8aa7ac4fdc31b63716bd59b9ed86cc4061c7a9d7f5cf8bc994fb08966f";
+export const TESTNET_DASHBOARD_ID = "0x592fc09dddf7217aa3e47471fc72aae92760c890a82056dff0be818b8e73f8f0";
 export const DEVNET_DASHBOARD_ID = "0x123";
 export const MAINNET_DASHBOARD_ID= "0x234";
 
