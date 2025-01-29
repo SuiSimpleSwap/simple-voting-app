@@ -31,7 +31,7 @@ export const VoteModal: FC<VoteModalProps> = ({
   const showToast = (message: string) => toastId.current = toast(message);
   const dismissToast = (message: string) => {
     toast.dismiss(toastId.current);
-    toast(message, {autoClose: 2000});
+    toast(message, { autoClose: 2000 });
   };
 
   const vote = (voteYes: boolean) => {
@@ -53,7 +53,7 @@ export const VoteModal: FC<VoteModalProps> = ({
       onError: () => {
         dismissToast("Tx Failed!");
       },
-      onSuccess: async ({digest}) => {
+      onSuccess: async ({ digest }) => {
         await suiClient.waitForTransaction({
           digest,
           options: {
@@ -72,7 +72,19 @@ export const VoteModal: FC<VoteModalProps> = ({
   return (
     <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
       <div className="bg-white dark:bg-gray-800 p-6 rounded-lg max-w-md w-full">
-        <h2 className="text-2xl font-bold mb-4">{proposal.title}</h2>
+
+        <div className="flex items-start justify-between">
+          <h2 className="text-2xl font-bold mb-4">{proposal.title}</h2>
+          {hasVoted || isSuccess ? (
+            <div className="w-14 text-sm p-1 font-medium rounded-full bg-green-100 text-gray-800 text-center">
+              Voted
+            </div>
+          ) : <div className="w-24 text-sm p-1 font-medium rounded-full bg-red-100 text-gray-800 text-center">
+            Not Voted
+          </div>
+          }
+        </div>
+
         <p className="mb-6 text-gray-700 dark:text-gray-300">{proposal.description}</p>
         <div className="flex flex-col gap-4">
           <div className="flex justify-between text-sm text-gray-600 dark:text-gray-400">
@@ -80,7 +92,7 @@ export const VoteModal: FC<VoteModalProps> = ({
             <span>👎No votes: {proposal.votedNoCount}</span>
           </div>
           <div className="flex justify-between gap-4">
-            { connectionStatus === "connected" ?
+            {connectionStatus === "connected" ?
               <>
                 <button
                   disabled={votingDisable}
