@@ -1,12 +1,13 @@
 import { useSuiClientQuery } from "@mysten/dapp-kit";
 import { useNetworkVariable } from "../config/networkConfig";
-import { SuiObjectData } from "@mysten/sui/client";
+import { PaginatedObjectsResponse, SuiObjectData } from "@mysten/sui/client";
 import { ProposalItem } from "../components/proposal/ProposalItem";
 import { useVoteNfts } from "../hooks/useVoteNfts";
+import { VoteNft } from "../types";
 
 const ProposalView = () => {
   const dashboardId = useNetworkVariable("dashboardId");
-  const { data: voteNfts} = useVoteNfts();
+  const { data: voteNftsRes} = useVoteNfts();
 
   const { data: dataResponse, isPending, error} = useSuiClientQuery(
     "getObject", {
@@ -17,11 +18,12 @@ const ProposalView = () => {
     }
   );
 
-  console.log(voteNfts);
-
   if (isPending) return <div className="text-center text-gray-500">Loading...</div>;
   if (error) return <div className="text-red-500">Error: {error.message}</div>;
   if (!dataResponse.data) return <div className="text-center text-red-500">Not Found...</div>;
+
+  const voteNfts = extractVoteNfts(voteNftsRes);
+  console.log(voteNfts);
 
   return (
     <>
@@ -44,6 +46,26 @@ function getDashboardFields(data: SuiObjectData) {
   return data.content.fields as {
     id: SuiID,
     proposals_ids: string[]
+  };
+}
+
+function extractVoteNfts(nftRes: PaginatedObjectsResponse | undefined) {
+  if (!nftRes?.data) return [];
+
+  return nftRes.data.map(nftObject => getVoteNft(nftObject.data));
+}
+
+function getVoteNft(nftData: SuiObjectData | undefined | null): VoteNft {
+  if (nftData?.content?.dataType !== "moveObject") {
+    return {id: {id: ""}, url: "", proposalId: ""};
+  }
+
+  const { proposal_id: proposalId, url, id } = nftData.content.fields as any;
+
+  return {
+    proposalId,
+    id,
+    url
   };
 }
 
