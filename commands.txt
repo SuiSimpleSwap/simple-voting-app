@@ -89,3 +89,14 @@ sui client ptb \
   --assign proposal_id \
   --move-call 0x514d5d6d03c07b770744d7a708927da6b3f69a99c3eb5ba2d69b43aa7b9d84d2::dashboard::register_proposal \
   @0xcae647d8bc3720024ae69aa3e2e7e7641e7c4afa8572430fb192c14f8911c6cb proposal_id
+
+
+
+
+
+
+
+sui client ptb \
+  --move-call 0x058171d13219e409423faf756b48abbe6f50c6f902e5ba39efa3b7524321b9f6::proposal::set_delisted_status \
+  @0xa72ebfb06e907a641ddeb71addfc0849719a63a3504434e38f6c0442f633c1dd \
+  @0x7c09192cf36d236fc0d8c0885ae6e20c58644fceff8d72a3b2cc7285dc3cbedf
