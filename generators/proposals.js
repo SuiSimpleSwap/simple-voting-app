@@ -30,9 +30,9 @@ const generatePTBCommand = ({ packageId, adminCapId, dashboardId, numProposals }
 
 // Inputs
 const inputs = {
-  packageId: "0x058171d13219e409423faf756b48abbe6f50c6f902e5ba39efa3b7524321b9f6",
-  adminCapId: "0x7c09192cf36d236fc0d8c0885ae6e20c58644fceff8d72a3b2cc7285dc3cbedf",
-  dashboardId: "0x592fc09dddf7217aa3e47471fc72aae92760c890a82056dff0be818b8e73f8f0",
+  packageId: "0x95120f4f689ef4b8056c286373480dd84401a960794f6891585c1777b890cb61",
+  adminCapId: "0xfe0c04b2708fd4c6c72f24eacd229542abbff7481beca4d0475c4589e36b5ccd",
+  dashboardId: "0xe6fecf3c4d8e9a61923a9bce261f1b7ffdff414d6e2231e50d0ceb67fcb4d63f",
   numProposals: 3, // Specify the number of proposals to generate
 };
 
