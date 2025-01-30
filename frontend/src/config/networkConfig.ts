@@ -1,10 +1,17 @@
 
 import { getFullnodeUrl } from "@mysten/sui/client" ;
 import { createNetworkConfig } from "@mysten/dapp-kit";
-import { DEVNET_DASHBOARD_ID, DEVNET_PACKAGE_ID, MAINNET_DASHBOARD_ID, MAINNET_PACKAGE_ID, TESTNET_DASHBOARD_ID, TESTNET_PACKAGE_ID } from "../constants";
+import { DEVNET_DASHBOARD_ID, DEVNET_PACKAGE_ID, LOCAL_DASHBOARD_ID, LOCAL_PACKAGE_ID, MAINNET_DASHBOARD_ID, MAINNET_PACKAGE_ID, TESTNET_DASHBOARD_ID, TESTNET_PACKAGE_ID } from "../constants";
 
 
 const { networkConfig, useNetworkVariable } = createNetworkConfig({
+  localnet: {
+    url: getFullnodeUrl("localnet"),
+    variables: {
+      dashboardId: LOCAL_DASHBOARD_ID,
+      packageId: LOCAL_PACKAGE_ID,
+    }
+  },
   devnet: {
     url: getFullnodeUrl("devnet"),
     variables: {
