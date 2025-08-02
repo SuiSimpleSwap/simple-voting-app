@@ -2,22 +2,31 @@
 import { useCurrentAccount } from "@mysten/dapp-kit"
 import { OwnedObjects } from "../OwnedObjects";
 
-
 export const WalletStatus = () => {
   const account = useCurrentAccount();
 
   return (
-    <div className="my-2 p-4 border rounded-lg bg-gray-100 dark:bg-gray-800">
-      <h2 className="mb-2 text-xl font-bold">Wallet Status</h2>
+    <div className="card-brutal p-6 mb-8">
+      <h2 className="text-xl sm:text-2xl font-bold font-mono uppercase tracking-wider mb-6 bg-black text-white border-2 border-black p-3 inline-block">
+        WALLET STATUS
+      </h2>
+      
       {account ? (
-        <div className="flex flex-col space-y-1">
-          <p className="text-gray-700 dark:text-gray-300">Wallet connected</p>
-          <p className="text-gray-700 dark:text-gray-300">
-            Address: <span className="font-mono">{account.address}</span>
-          </p>
+        <div className="space-y-4">
+          <div className="bg-white border-2 border-black p-4">
+            <p className="font-mono font-bold uppercase tracking-wider text-sm mb-2">STATUS:</p>
+            <p className="font-mono text-sm">CONNECTED</p>
+          </div>
+          
+          <div className="bg-white border-2 border-black p-4 break-all">
+            <p className="font-mono font-bold uppercase tracking-wider text-sm mb-2">ADDRESS:</p>
+            <p className="font-mono text-xs sm:text-sm break-all">{account.address}</p>
+          </div>
         </div>
       ) : (
-        <p className="text-gray-700 dark:text-gray-300">Wallet not connected</p>
+        <div className="bg-black text-white border-2 border-black p-4">
+          <p className="font-mono font-bold uppercase tracking-wider">WALLET NOT CONNECTED</p>
+        </div>
       )}
 
       <OwnedObjects />

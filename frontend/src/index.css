@@ -1,91 +1,196 @@
+/* Neo Brutalist Base Styles */
+@import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;700;800&display=swap');
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
-/* Base styles */
-:root {
-  --background-color: #f9fafb;
-  --text-color: #111827;
-  --button-bg: #3b82f6;
-  --button-text: #ffffff;
-  --button-hover: #2563eb;
+* {
+  box-sizing: border-box;
 }
 
-/* Dark mode styles */
-:root.dark {
-  --background-color: #111827;
-  --text-color: #f9fafb;
-  --button-bg: #2563eb;
-  --button-text: #ffffff;
-  --button-hover: #1d4ed8;
-}
-
-/* Apply variables */
 body {
-  background-color: var(--background-color);
-  color: var(--text-color);
-  transition: background-color 0.3s, color 0.3s;
+  font-family: 'JetBrains Mono', monospace;
+  background-color: #ffffff;
+  color: #000000;
+  line-height: 1.4;
+  font-weight: 700;
 }
 
-button {
-  background-color: var(--button-bg);
-  color: var(--button-text);
-  transition: background-color 0.3s, color 0.3s;
+/* Neo Brutalist Button Base */
+.btn-brutal {
+  background-color: #000000;
+  color: #ffffff;
+  border: 4px solid #000000;
+  font-family: 'JetBrains Mono', monospace;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  padding: 12px 24px;
+  cursor: pointer;
+  transition: all 0.15s ease;
+  box-shadow: 4px 4px 0px 0px #000000;
 }
 
-button:hover {
-  background-color: var(--button-hover);
+.btn-brutal:hover {
+  background-color: #ffffff;
+  color: #000000;
 }
 
+.btn-brutal:active {
+  box-shadow: none;
+  transform: translate(4px, 4px);
+}
+
+.btn-brutal:disabled {
+  background-color: #808080;
+  border-color: #808080;
+  cursor: not-allowed;
+}
+
+.btn-brutal:disabled:hover {
+  background-color: #808080;
+  color: #ffffff;
+}
+
+/* Card Brutal */
+.card-brutal {
+  background-color: #ffffff;
+  border: 4px solid #000000;
+  box-shadow: 4px 4px 0px 0px #000000;
+  transition: all 0.15s ease;
+}
+
+.card-brutal:hover {
+  box-shadow: 8px 8px 0px 0px #000000;
+}
+
+/* Input Brutal */
+.input-brutal {
+  border: 4px solid #000000;
+  background-color: #ffffff;
+  color: #000000;
+  font-family: 'JetBrains Mono', monospace;
+  font-weight: 700;
+  padding: 12px 16px;
+  transition: all 0.15s ease;
+}
+
+.input-brutal:focus {
+  outline: none;
+  background-color: #000000;
+  color: #ffffff;
+}
+
+.input-brutal::placeholder {
+  color: #808080;
+}
+
+/* Create Proposal Form - Neo Brutalist */
 .create-proposal-form {
-  max-width: 400px;
+  max-width: 28rem;
   margin: 0 auto 2rem auto;
-  padding: 2rem 1.5rem;
-  background: #fff;
-  border-radius: 12px;
-  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.08);
-  color: #111827;
+  padding: 2rem;
+  background-color: #ffffff;
+  border: 4px solid #000000;
+  box-shadow: 12px 12px 0px 0px #000000;
 }
 
 .create-proposal-form .input {
   width: 100%;
-  padding: 0.75rem 1rem;
   margin-bottom: 1rem;
-  border: 1px solid #e5e7eb;
-  border-radius: 8px;
-  font-size: 1rem;
-  background: #f9fafb;
-  transition: border-color 0.2s;
-  color: #111827;
+  padding: 12px 16px;
+  border: 4px solid #000000;
+  background-color: #ffffff;
+  color: #000000;
+  font-family: 'JetBrains Mono', monospace;
+  font-weight: 700;
+  transition: all 0.15s ease;
+}
+
+.create-proposal-form .input::placeholder {
+  color: #808080;
 }
 
 .create-proposal-form .input:focus {
-  border-color: #6366f1;
   outline: none;
+  background-color: #000000;
+  color: #ffffff;
 }
 
 .create-proposal-form .btn {
   width: 100%;
-  padding: 0.75rem 1rem;
-  background: #6366f1;
-  color: #fff;
-  border: none;
-  border-radius: 8px;
-  font-size: 1rem;
-  font-weight: 600;
+  padding: 16px 24px;
+  background-color: #000000;
+  color: #ffffff;
+  border: 4px solid #000000;
+  font-family: 'JetBrains Mono', monospace;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  transition: all 0.15s ease;
+  box-shadow: 4px 4px 0px 0px #000000;
   cursor: pointer;
-  transition: background 0.2s;
-  color: #111827;
+}
+
+.create-proposal-form .btn:hover {
+  background-color: #ffffff;
+  color: #000000;
+}
+
+.create-proposal-form .btn:active {
+  box-shadow: none;
+  transform: translate(4px, 4px);
 }
 
 .create-proposal-form .btn:disabled {
-  background: #a5b4fc;
+  background-color: #808080;
+  border-color: #808080;
   cursor: not-allowed;
 }
 
-.create-proposal-form .text-green-500,
-.create-proposal-form .text-red-500 {
+.create-proposal-form .btn:disabled:hover {
+  background-color: #808080;
+  color: #ffffff;
+}
+
+.create-proposal-form .text-green-500 {
+  color: #000000;
+  background-color: #ffffff;
+  border: 2px solid #000000;
+  padding: 8px;
   margin-top: 1rem;
-  font-size: 0.95rem;
+  font-weight: 700;
   text-align: center;
+}
+
+.create-proposal-form .text-red-500 {
+  color: #ffffff;
+  background-color: #000000;
+  border: 2px solid #000000;
+  padding: 8px;
+  margin-top: 1rem;
+  font-weight: 700;
+  text-align: center;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .create-proposal-form {
+    margin: 0 1rem 2rem 1rem;
+    padding: 1.5rem;
+  }
+  
+  .card-brutal {
+    box-shadow: 4px 4px 0px 0px #000000;
+  }
+  
+  .btn-brutal {
+    font-size: 0.875rem;
+    padding: 8px 16px;
+  }
+  
+  body {
+    font-size: 14px;
+  }
 }

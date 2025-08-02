@@ -6,36 +6,41 @@ type SuiObjectProps = {
 };
 
 export const SuiObject: FC<SuiObjectProps> = ({ objectRes }) => {
-
   const owner = objectRes.data?.owner;
   const objectType = objectRes.data?.type;
-
   const isCoin = objectType?.includes("0x2::coin::Coin");
-  const balance = isCoin ? (objectRes.data?.content as any).fields?.balance : -1;
+  const balance = isCoin ? (objectRes.data?.content as any)?.fields?.balance : -1;
 
   return (
-    <div
-      key={objectRes.data?.objectId}
-      className="p-2 border rounded-lg bg-gray-50 dark:bg-gray-800"
-    >
-      <p className="text-gray-700 dark:text-gray-300">
-        <strong>ID:</strong> {objectRes.data?.objectId}
-      </p>
-      <p className="text-gray-700 dark:text-gray-300">
-        <strong>Type:</strong> {objectType}
-      </p>
-      <p className="text-gray-700 dark:text-gray-300">
-        <strong>Owner:</strong> {
-          typeof owner === "object" && owner !== null && "AddressOwner" in owner
-            ? owner.AddressOwner
-            : "Unknow"
-        }
-      </p>
-      { isCoin && (
-        <p className="text-gray-700 dark:text-gray-300">
-          <strong>Balance:</strong> {balance}
-        </p>
-      )}
+    <div className="card-brutal p-4">
+      <div className="space-y-3">
+        <div className="bg-white border-2 border-black p-2 break-all">
+          <p className="font-mono font-bold uppercase tracking-wider text-xs mb-1">ID:</p>
+          <p className="font-mono text-xs break-all">{objectRes.data?.objectId}</p>
+        </div>
+        
+        <div className="bg-white border-2 border-black p-2 break-all">
+          <p className="font-mono font-bold uppercase tracking-wider text-xs mb-1">TYPE:</p>
+          <p className="font-mono text-xs break-all">{objectType || "UNKNOWN"}</p>
+        </div>
+        
+        <div className="bg-white border-2 border-black p-2 break-all">
+          <p className="font-mono font-bold uppercase tracking-wider text-xs mb-1">OWNER:</p>
+          <p className="font-mono text-xs break-all">
+            {typeof owner === "object" && owner !== null && "AddressOwner" in owner
+              ? owner.AddressOwner
+              : "UNKNOWN"
+            }
+          </p>
+        </div>
+        
+        {isCoin && (
+          <div className="bg-black text-white border-2 border-black p-2">
+            <p className="font-mono font-bold uppercase tracking-wider text-xs mb-1">BALANCE:</p>
+            <p className="font-mono text-xs">{balance || "0"}</p>
+          </div>
+        )}
+      </div>
     </div>
   )
 };

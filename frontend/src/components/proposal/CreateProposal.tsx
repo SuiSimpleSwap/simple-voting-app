@@ -1,6 +1,7 @@
 import { FC, useState } from "react";
 import { useSignAndExecuteTransaction } from "@mysten/dapp-kit";
 import { useNetworkVariable } from "../../config/networkConfig";
+import { Transaction } from "@mysten/sui/transactions";
 
 export const CreateProposal: FC = () => {
   const [title, setTitle] = useState("");
@@ -17,22 +18,20 @@ export const CreateProposal: FC = () => {
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
+    
+    const tx = new Transaction();
+    tx.moveCall({
+      target: `${packageId}::proposal::create`,
+      arguments: [
+        tx.object(adminCapId),
+        tx.pure.string(title),
+        tx.pure.string(description),
+        tx.pure.u64(Number(expiration))
+      ],
+    });
+
     signAndExecute({
-      transaction: {
-        kind: "moveCall",
-        data: {
-          packageObjectId: packageId,
-          module: "proposal",
-          function: "create",
-          arguments: [
-            adminCapId,
-            title,
-            description,
-            Number(expiration), // pastikan number, bukan string
-          ],
-          gasBudget: 100000000,
-        },
-      },
+      transaction: tx,
     });
   };
 

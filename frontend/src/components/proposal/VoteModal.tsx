@@ -47,12 +47,12 @@ export const VoteModal: FC<VoteModalProps> = ({
       target: `${packageId}::proposal::vote`
     });
 
-    showToast("Processing Transaction");
+    showToast("PROCESSING TRANSACTION");
     signAndExecute({
       transaction: tx
     }, {
       onError: () => {
-        dismissToast("Tx Failed!");
+        dismissToast("TX FAILED!");
       },
       onSuccess: async ({ digest }) => {
         await suiClient.waitForTransaction({
@@ -78,7 +78,7 @@ export const VoteModal: FC<VoteModalProps> = ({
         }
 
         reset();
-        dismissToast("Tx Succesful!");
+        dismissToast("TX SUCCESSFUL!");
         onVote(voteYes);
       }
     });
@@ -87,58 +87,94 @@ export const VoteModal: FC<VoteModalProps> = ({
   const votingDisable = hasVoted || isPending || isSuccess;
 
   return (
-    <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
-      <div className="bg-white dark:bg-gray-800 p-6 rounded-lg max-w-md w-full">
-
-        <div className="flex items-start justify-between">
-          <h2 className="text-2xl font-bold mb-4">{proposal.title}</h2>
-          {hasVoted || isSuccess ? (
-            <div className="w-14 text-sm p-1 font-medium rounded-full bg-green-100 text-gray-800 text-center">
-              Voted
-            </div>
-          ) : <div className="w-24 text-sm p-1 font-medium rounded-full bg-red-100 text-gray-800 text-center">
-            Not Voted
+    <div className="fixed inset-0 bg-black bg-opacity-75 flex items-center justify-center z-50 p-4">
+      <div className="bg-white border-4 border-black max-w-md w-full shadow-brutal-xl">
+        
+        {/* Header */}
+        <div className="bg-black text-white p-4 border-b-4 border-black">
+          <div className="flex items-start justify-between">
+            <h2 className="text-xl sm:text-2xl font-bold font-mono uppercase tracking-wider break-words flex-1 mr-4">
+              {proposal.title}
+            </h2>
+            {hasVoted || isSuccess ? (
+              <div className="bg-white text-black border-2 border-white px-3 py-1 text-xs font-mono font-bold uppercase tracking-wider flex-shrink-0">
+                VOTED
+              </div>
+            ) : (
+              <div className="bg-white text-black border-2 border-white px-3 py-1 text-xs font-mono font-bold uppercase tracking-wider flex-shrink-0">
+                NOT VOTED
+              </div>
+            )}
           </div>
-          }
         </div>
 
-        <p className="mb-6 text-gray-700 dark:text-gray-300">{proposal.description}</p>
-        <div className="flex flex-col gap-4">
-          <div className="flex justify-between text-sm text-gray-600 dark:text-gray-400">
-            <span>👍Yes votes: {proposal.votedYesCount}</span>
-            <span>👎No votes: {proposal.votedNoCount}</span>
+        {/* Content */}
+        <div className="p-6">
+          <p className="font-mono text-sm sm:text-base mb-6 break-words">
+            {proposal.description}
+          </p>
+          
+          {/* Vote Stats */}
+          <div className="flex flex-col sm:flex-row justify-between gap-4 mb-6">
+            <div className="flex items-center font-mono font-bold">
+              <span className="mr-2 text-lg">👍</span>
+              <span className="bg-white border-2 border-black px-3 py-2 text-sm uppercase tracking-wider">
+                YES: {proposal.votedYesCount}
+              </span>
+            </div>
+            <div className="flex items-center font-mono font-bold">
+              <span className="mr-2 text-lg">👎</span>
+              <span className="bg-black text-white border-2 border-black px-3 py-2 text-sm uppercase tracking-wider">
+                NO: {proposal.votedNoCount}
+              </span>
+            </div>
           </div>
-          <div className="flex justify-between gap-4">
-            {connectionStatus === "connected" ?
-              <>
+          
+          {/* Voting Buttons */}
+          <div className="flex flex-col gap-4">
+            {connectionStatus === "connected" ? (
+              <div className="flex flex-col sm:flex-row gap-4">
                 <button
                   disabled={votingDisable}
                   onClick={() => vote(true)}
-                  className="flex-1 bg-green-500 text-white px-6
-                  py-2 rounded hover:bg-green-600 transition-colors disabled:bg-gray-300 disabled:cursor-not-allowed"
+                  className="flex-1 bg-white text-black border-4 border-black font-mono font-bold uppercase tracking-wider px-6 py-3 hover:bg-black hover:text-white transition-all duration-150 disabled:opacity-50 disabled:cursor-not-allowed shadow-brutal active:shadow-none active:translate-x-1 active:translate-y-1"
                 >
-                  Vote Yes
+                  {isPending ? "VOTING..." : "VOTE YES"}
                 </button>
                 <button
                   disabled={votingDisable}
                   onClick={() => vote(false)}
-                  className="flex-1 bg-red-500 text-white px-6 py-2
-                  rounded hover:bg-red-600 transition-colors  disabled:bg-gray-300 disabled:cursor-not-allowed"
+                  className="flex-1 bg-black text-white border-4 border-black font-mono font-bold uppercase tracking-wider px-6 py-3 hover:bg-white hover:text-black transition-all duration-150 disabled:opacity-50 disabled:cursor-not-allowed shadow-brutal active:shadow-none active:translate-x-1 active:translate-y-1"
                 >
-                  Vote No
+                  {isPending ? "VOTING..." : "VOTE NO"}
                 </button>
-              </> :
-              <div>
-                <ConnectButton connectText="Connect to vote" />
               </div>
-            }
+            ) : (
+              <div className="text-center">
+                <ConnectButton 
+                  connectText="CONNECT TO VOTE"
+                  style={{
+                    backgroundColor: '#000000',
+                    color: '#ffffff',
+                    border: '4px solid #000000',
+                    fontFamily: 'JetBrains Mono, monospace',
+                    fontWeight: 700,
+                    textTransform: 'uppercase',
+                    letterSpacing: '0.1em',
+                    padding: '12px 24px',
+                    fontSize: '14px'
+                  }}
+                />
+              </div>
+            )}
+            
+            <button
+              onClick={onClose}
+              className="w-full bg-white text-black border-4 border-black font-mono font-bold uppercase tracking-wider px-6 py-3 hover:bg-black hover:text-white transition-all duration-150 shadow-brutal active:shadow-none active:translate-x-1 active:translate-y-1"
+            >
+              CLOSE
+            </button>
           </div>
-          <button
-            onClick={onClose}
-            className="w-full border border-gray-300 dark:border-gray-600 px-4 py-2 rounded hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors"
-          >
-            Cancel
-          </button>
         </div>
       </div>
     </div>

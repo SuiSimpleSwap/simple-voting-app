@@ -22,28 +22,65 @@ const ProposalView = () => {
   });
 
   if (isPending)
-    return <div className="text-center text-gray-500">Loading...</div>;
-  if (error) return <div className="text-red-500">Error: {error.message}</div>;
+    return (
+      <div className="text-center p-8">
+        <div className="bg-white border-4 border-black p-8 mx-auto max-w-md">
+          <p className="font-mono font-bold text-lg">LOADING...</p>
+        </div>
+      </div>
+    );
+    
+  if (error) 
+    return (
+      <div className="text-center p-8">
+        <div className="bg-black text-white border-4 border-black p-8 mx-auto max-w-md">
+          <p className="font-mono font-bold text-lg">ERROR: {error.message}</p>
+        </div>
+      </div>
+    );
+    
   if (!dataResponse.data)
-    return <div className="text-center text-red-500">Not Found...</div>;
+    return (
+      <div className="text-center p-8">
+        <div className="bg-black text-white border-4 border-black p-8 mx-auto max-w-md">
+          <p className="font-mono font-bold text-lg">NOT FOUND...</p>
+        </div>
+      </div>
+    );
 
-  const voteNfts = extractVoteNfts(voteNftsRes);
+  const voteNfts = extractVoteNfts(voteNftsRes as any);
+  const proposals = getDashboardFields(dataResponse.data as any)?.proposals_ids || [];
 
   return (
-    <>
-      <h1 className="text-4xl font-bold mb-8">New Proposals</h1>
-      <CreateProposal />
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-        {getDashboardFields(dataResponse.data)?.proposals_ids.map((id) => (
-          <ProposalItem
-            key={id}
-            id={id}
-            onVoteTxSuccess={() => refetchNfts()}
-            voteNft={voteNfts.find((nft) => nft.proposalId === id)}
-          />
-        ))}
+    <div className="py-8">
+      <div className="text-center mb-8">
+        <h1 className="text-3xl sm:text-4xl lg:text-5xl font-bold font-mono uppercase tracking-wider mb-4 bg-white border-4 border-black p-4 sm:p-6 mx-auto max-w-fit shadow-brutal">
+          PROPOSALS
+        </h1>
       </div>
-    </>
+      
+      <CreateProposal />
+      
+      {proposals.length === 0 ? (
+        <div className="text-center p-8">
+          <div className="bg-white border-4 border-black p-8 mx-auto max-w-md">
+            <p className="font-mono font-bold text-lg">NO PROPOSALS YET</p>
+            <p className="font-mono text-sm mt-2">CREATE THE FIRST ONE!</p>
+          </div>
+        </div>
+      ) : (
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 lg:gap-8">
+          {proposals.map((id) => (
+            <ProposalItem
+              key={id}
+              id={id}
+              onVoteTxSuccess={() => refetchNfts()}
+              voteNft={voteNfts.find((nft) => nft.proposalId === id)}
+            />
+          ))}
+        </div>
+      )}
+    </div>
   );
 };
 
