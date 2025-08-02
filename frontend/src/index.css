@@ -2,7 +2,6 @@
 @tailwind components;
 @tailwind utilities;
 
-
 /* Base styles */
 :root {
   --background-color: #f9fafb;
@@ -36,4 +35,57 @@ button {
 
 button:hover {
   background-color: var(--button-hover);
+}
+
+.create-proposal-form {
+  max-width: 400px;
+  margin: 0 auto 2rem auto;
+  padding: 2rem 1.5rem;
+  background: #fff;
+  border-radius: 12px;
+  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.08);
+  color: #111827;
+}
+
+.create-proposal-form .input {
+  width: 100%;
+  padding: 0.75rem 1rem;
+  margin-bottom: 1rem;
+  border: 1px solid #e5e7eb;
+  border-radius: 8px;
+  font-size: 1rem;
+  background: #f9fafb;
+  transition: border-color 0.2s;
+  color: #111827;
+}
+
+.create-proposal-form .input:focus {
+  border-color: #6366f1;
+  outline: none;
+}
+
+.create-proposal-form .btn {
+  width: 100%;
+  padding: 0.75rem 1rem;
+  background: #6366f1;
+  color: #fff;
+  border: none;
+  border-radius: 8px;
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.2s;
+  color: #111827;
+}
+
+.create-proposal-form .btn:disabled {
+  background: #a5b4fc;
+  cursor: not-allowed;
+}
+
+.create-proposal-form .text-green-500,
+.create-proposal-form .text-red-500 {
+  margin-top: 1rem;
+  font-size: 0.95rem;
+  text-align: center;
 }
