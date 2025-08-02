@@ -1,16 +1,3 @@
-# Project Setup Instructions
-
-Welcome to the project repository for the course **"Sui dApps with Move & React - Build Real Projects"**.
-
-## About the Course
-
-**Course Title:** Sui dApps with Move & React - Build Real Projects  
-**Description:** Hands-on Sui dApp development with Move and React. Create a voting system and a meme coin. Learn smart contracts coding.
-
-To get detailed instructions and learn about SUI and Move, enroll in the course: [Sui dApps with Move & React - Build Real Projects](https://academy.eincode.com/courses/sui-dapps-with-move-react-build-real-projects)
-
----
-
 ## Project Structure
 
 - **frontend**: Contains a React JS application built using Vite.
