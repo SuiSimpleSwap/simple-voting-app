@@ -4,6 +4,14 @@ import { useNavigation } from "../providers/navigation/NavigationContext";
 const Navbar = () => {
   const {currentPage, navigate} = useNavigation()
 
+  const navItems = [
+    { path: "/", label: "HOME" },
+    { path: "/analytics", label: "ANALYTICS" },
+    { path: "/admin", label: "ADMIN" },
+    { path: "/wallet", label: "WALLET" },
+    { path: "/help", label: "HELP" },
+  ];
+
   return (
     <nav className="bg-white border-b-4 border-black p-4 sticky top-0 z-40">
       <div className="max-w-7xl mx-auto flex flex-col sm:flex-row justify-between items-center gap-4">
@@ -13,31 +21,21 @@ const Navbar = () => {
           </h1>
         </div>
         
-        <ul className="flex space-x-2 sm:space-x-4">
-          <li>
-            <button
-              onClick={() => navigate("/")}
-              className={`px-4 py-2 sm:px-6 sm:py-3 border-4 border-black font-mono font-bold uppercase tracking-wider text-sm sm:text-base transition-all duration-150 ${
-                currentPage === "/" 
-                  ? "bg-black text-white" 
-                  : "bg-white text-black hover:bg-black hover:text-white"
-              }`}
-            >
-              HOME
-            </button>
-          </li>
-          <li>
-            <button
-              onClick={() => navigate("/wallet")}
-              className={`px-4 py-2 sm:px-6 sm:py-3 border-4 border-black font-mono font-bold uppercase tracking-wider text-sm sm:text-base transition-all duration-150 ${
-                currentPage === "/wallet" 
-                  ? "bg-black text-white" 
-                  : "bg-white text-black hover:bg-black hover:text-white"
-              }`}
-            >
-              WALLET
-            </button>
-          </li>
+        <ul className="flex flex-wrap justify-center space-x-2 sm:space-x-2">
+          {navItems.map((item) => (
+            <li key={item.path}>
+              <button
+                onClick={() => navigate(item.path)}
+                className={`px-3 py-2 sm:px-4 sm:py-2 border-4 border-black font-mono font-bold uppercase tracking-wider text-xs sm:text-sm transition-all duration-150 ${
+                  currentPage === item.path 
+                    ? "bg-black text-white" 
+                    : "bg-white text-black hover:bg-black hover:text-white"
+                }`}
+              >
+                {item.label}
+              </button>
+            </li>
+          ))}
         </ul>
         
         <div className="connect-button-container">

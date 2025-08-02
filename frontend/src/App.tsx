@@ -1,7 +1,11 @@
 import React from "react";
 import ProposalView from "./views/ProposalView";
 import Navbar from "./components/Navbar";
+import Footer from "./components/Footer";
 import WalletView from "./views/WalletView";
+import AdminView from "./views/AdminView";
+import AnalyticsView from "./views/AnalyticsView";
+import HelpView from "./views/HelpView";
 import { useNavigation } from "./providers/navigation/NavigationContext";
 import { ToastContainer } from "react-toastify";
 
@@ -13,6 +17,12 @@ const Pages = () => {
       return <ProposalView />
     case "/wallet":
       return <WalletView />
+    case "/admin":
+      return <AdminView />
+    case "/analytics":
+      return <AnalyticsView />
+    case "/help":
+      return <HelpView />
     default:
       return (
         <div className="text-center p-8">
@@ -37,11 +47,14 @@ const App: React.FC = () => {
           fontWeight: 700,
         }}
       />
-      <div className="min-h-screen bg-white text-black font-mono">
+      <div className="min-h-screen bg-white text-black font-mono flex flex-col">
         <Navbar />
-        <div className="max-w-7xl mx-auto pt-4 px-4 sm:px-6 lg:px-8">
-          <Pages />
-        </div>
+        <main className="flex-1">
+          <div className="max-w-7xl mx-auto pt-4 px-4 sm:px-6 lg:px-8">
+            <Pages />
+          </div>
+        </main>
+        <Footer />
       </div>
     </>
   );

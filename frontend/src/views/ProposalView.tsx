@@ -4,7 +4,6 @@ import { PaginatedObjectsResponse, SuiObjectData } from "@mysten/sui/client";
 import { ProposalItem } from "../components/proposal/ProposalItem";
 import { useVoteNfts } from "../hooks/useVoteNfts";
 import { VoteNft } from "../types";
-import { CreateProposal } from "../components/proposal/CreateProposal";
 
 const ProposalView = () => {
   const dashboardId = useNetworkVariable("dashboardId");
@@ -57,15 +56,16 @@ const ProposalView = () => {
         <h1 className="text-3xl sm:text-4xl lg:text-5xl font-bold font-mono uppercase tracking-wider mb-4 bg-white border-4 border-black p-4 sm:p-6 mx-auto max-w-fit shadow-brutal">
           PROPOSALS
         </h1>
+        <p className="font-mono text-sm text-gray-600 mt-2">
+          VOTE ON ACTIVE PROPOSALS
+        </p>
       </div>
-      
-      <CreateProposal />
       
       {proposals.length === 0 ? (
         <div className="text-center p-8">
           <div className="bg-white border-4 border-black p-8 mx-auto max-w-md">
             <p className="font-mono font-bold text-lg">NO PROPOSALS YET</p>
-            <p className="font-mono text-sm mt-2">CREATE THE FIRST ONE!</p>
+            <p className="font-mono text-sm mt-2">CHECK BACK LATER OR CONTACT AN ADMIN!</p>
           </div>
         </div>
       ) : (

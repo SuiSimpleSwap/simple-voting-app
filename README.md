@@ -1,76 +1,91 @@
-## Project Structure
+# 🗳️ Simple Voting App
 
-- **frontend**: Contains a React JS application built using Vite.
-- **contracts**: Contains the Move language smart contracts.
+> A decentralized voting application built on the SUI blockchain using Move smart contracts and React.
 
----
+## 🏗️ Project Structure
 
-## Prerequisites
-
-1. **SUI CLI Setup:**  
-   - Follow the official SUI documentation to install the CLI and create an account: [SUI Setup Instructions](https://docs.sui.io/guides/developer/getting-started/sui-install)
-
-2. **Node.js & pnpm:**  
-   Ensure you have Node.js installed. Then install pnpm globally:
-
-   ```bash
-   npm install -g pnpm
-   ```
+```
+simple-voting-app/
+├── 📱 frontend/     # React JS application (Vite)
+└── 📜 contracts/    # Move language smart contracts
+```
 
 ---
 
-## Step-by-Step Setup
+## ⚡ Quick Start
 
-### 1. Publish the Smart Contract
-
-Navigate to the `contracts` folder and publish the contract using the SUI CLI:
+### Prerequisites Checklist
+- [ ] **SUI CLI Setup** - [Installation Guide](https://docs.sui.io/guides/developer/getting-started/sui-install)
+- [ ] **Node.js** (v18+)
+- [ ] **pnpm** package manager
 
 ```bash
+# Install pnpm globally
+npm install -g pnpm
+```
+
+---
+
+## 🚀 Setup Guide
+
+### Step 1: Deploy Smart Contract
+
+```bash
+cd contracts
 sui client publish
 ```
 
-This will provide you with the package ID and object IDs. Make note of these IDs as they are required in the frontend configuration.
+> 💡 **Important:** Save the package ID and object IDs from the output - you'll need them for frontend configuration.
 
-### 2. Configure the Frontend
+### Step 2: Configure Frontend
 
-1. Navigate to the `frontend/src/constants.ts` file.
-2. Replace the placeholder values with your published contract and object IDs:
+Update `frontend/src/constants.ts` with your contract details:
 
 ```typescript
-export const DEVNET_PACKAGE_ID = "<your-devnet-package-id>";
-export const TESTNET_PACKAGE_ID = "<your-testnet-package-id>";
-export const MAINNET_PACKAGE_ID = "<your-mainnet-package-id>";
+// Replace with your actual IDs
+export const DEVNET_PACKAGE_ID = "0x...";
+export const TESTNET_PACKAGE_ID = "0x...";
+export const MAINNET_PACKAGE_ID = "0x...";
 
-export const DEVNET_DASHBOARD_ID = "<your-devnet-dashboard-id>";
-export const TESTNET_DASHBOARD_ID = "<your-testnet-dashboard-id>";
-export const MAINNET_DASHBOARD_ID = "<your-mainnet-dashboard-id>";
+export const DEVNET_DASHBOARD_ID = "0x...";
+export const TESTNET_DASHBOARD_ID = "0x...";
+export const MAINNET_DASHBOARD_ID = "0x...";
 ```
 
-### 3. Install and Run the Frontend
+### Step 3: Launch Application
 
-1. Navigate to the `frontend` folder:
+```bash
+cd frontend
+pnpm install
+pnpm dev
+```
 
-   ```bash
-   cd frontend
-   ```
-
-2. Install the dependencies:
-
-   ```bash
-   pnpm install
-   ```
-
-3. Start the development server:
-
-   ```bash
-   pnpm dev
-   ```
+🎉 **Success!** Your app should now be running at `http://localhost:5173`
 
 ---
 
-## Additional Resources
+## 🛠️ Development Commands
 
-- Official SUI Documentation: [https://docs.sui.io](https://docs.sui.io)
-- Course Link: [https://academy.eincode.com/courses/sui-dapps-with-move-react-build-real-projects](https://academy.eincode.com/courses/sui-dapps-with-move-react-build-real-projects)
+| Command | Description |
+|---------|-------------|
+| `pnpm dev` | Start development server |
+| `pnpm build` | Build for production |
+| `pnpm preview` | Preview production build |
 
-Happy coding! 🚀
+---
+
+## 📚 Resources
+
+- 📖 [SUI Documentation](https://docs.sui.io)
+- 🎓 [Course: SUI DApps with Move & React](https://academy.eincode.com/courses/sui-dapps-with-move-react-build-real-projects)
+- 🐛 [Report Issues](https://github.com/your-username/simple-voting-app/issues)
+
+---
+
+## 🤝 Contributing
+
+Contributions are welcome! Please feel free to submit a Pull Request.
+
+---
+
+**Happy coding!** 🚀✨
